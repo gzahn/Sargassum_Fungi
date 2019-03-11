@@ -41,7 +41,7 @@ colorblindr::palette_plot(pal)
 # Load data ####
 ps = readRDS(file = "./Output/clean_phyloseq_object.RDS")
 meta = as.data.frame(sample_data(ps))
-
+tax_table(ps)[,2]
 # Subset to Sargassum samples ####
 ps <- prune_samples(ps@sam_data$Species == "Sargassum",ps)
 
@@ -140,13 +140,32 @@ ps_ra2@tax_table[,1][ps_ra2@tax_table[,1] == "NA"] <- "Unassigned"
 ps_ra2@tax_table[,3][ps_ra2@tax_table[,3] == "NA"] <- "Unassigned"
 ps_ra2@tax_table[,4][ps_ra2@tax_table[,4] == "NA"] <- "Unassigned"
 
+
+# Fix Phylum names
+classes = as.character(unique(tax_table(ps_ra)[,3]))
+phyla = c("Ascomycota","Unassigned","Ascomycota","Ascomycota","Basidiomycota",
+  "Ascomycota","Glomeromycota","Ascomycota","Ascomycota","Basidiomycota")
+
+phyla = plyr::mapvalues(tax_table(ps_ra)[,3],from=classes,to=phyla)
+tax_table(ps_ra)[,2] <- phyla
+tax_table(ps_ra)[,2]
+
 # Bar plot of relative abundance, split by structure and island ####
 plot_bar(ps_ra, fill = "Class",x="Island") +
    geom_bar(stat = "identity") + coord_flip()  + #facet_wrap(~levels(sample_data(ps)$Structure)) +
-  labs(x="Site",y="Relative Abundance") +
-  theme(axis.title = element_text(size = 16), axis.text = element_text(size=12),
-        legend.title = element_text(size=16)) + scale_fill_manual(values = pal[c(1:9,11)]) + theme_bw() 
+  labs(x="Site",y="Relative Abundance") + theme_bw() +
+  theme(axis.title = element_text(size = 24,face = "bold"), axis.text = element_text(size=18),
+        legend.title = element_text(size=20), legend.text = element_text(size=16)) + scale_fill_manual(values = pal[c(1:9,11)])  
 ggsave("./Output/BarPlot_Fungal_Class_by_Island.png", height = 8, width = 12, dpi=300)
+
+plot_bar(ps_ra, fill = "Phylum",x="Island") +
+  geom_bar(stat = "identity") + coord_flip()  + #facet_wrap(~levels(sample_data(ps)$Structure)) +
+  labs(x="Site",y="Relative Abundance") + theme_bw() +
+  theme(axis.title = element_text(size = 24,face = "bold"), axis.text = element_text(size=18),
+        legend.title = element_text(size=20), legend.text = element_text(size=16)) + scale_fill_manual(values = pal[c(1:9,11)])  
+ggsave("./Output/BarPlot_Fungal_Phylum_by_Island.png", height = 8, width = 12, dpi=300)
+
+
 
 
 # rearrange orders for plot
@@ -211,6 +230,9 @@ heatmap_left(t(order.matrix), col = hm.pal, Rowv = NA, Colv=NA, labRow = NA, Row
              margins = c(50,10), cexCol = 5)
 dev.off()
 
+
+colorblindr::palette_plot(hm.pal)
+summary(order.df["Eurotiales",])
 # Write sequences to file to BLAST
 
 sink("./Output/rep_set.txt")
@@ -294,63 +316,65 @@ topten_tax_df <- topten_tax_df[,c(1,2,3,4,5,6,7,9,10,8)]
 write.csv(topten_tax_df, "./Output/Top-Ten_Most_Abundant_Taxa.csv", row.names = FALSE, quote = FALSE)
 
 
-# Look at Aspergillus sydowii (It's a known coral pathogen) ####
-sydowii = which(tax$Species == "s__sydowii")
-sydowii_seqs = (tax[sydowii,"seq"])
-ps_ra2 = transform_sample_counts(psm2, function(x) x / sum(x) )
-ps_sydowii = merge_taxa(ps_ra2,sydowii)
-ps_sydowii = subset_taxa(ps_sydowii,Species == "s__sydowii")
-
-structures = as.factor(sample_data(ps_sydowii)$Structure)
-structures = as.character(plyr::mapvalues(structures, from = "Hold Fast", to="Holdfast"))
-ps_sydowii@sam_data$Structure <- structures
-
-plot_bar(na.exclude(ps_sydowii),fill="Island",x="Island") + 
-    facet_wrap(~Structure) +
-  labs(x="Site",fill="Site",y="Relative Abundance") +
-  theme(axis.title = element_text(size = 16), axis.text = element_text(size=12),
-        legend.title = element_text(size=16),
-        strip.text.x = element_text(size = 12, face = "bold")) +
-  scale_fill_manual(values = pal)
-
-
-
-        # panel.background = element_rect(fill = "White"),
-        # panel.grid.major = element_line(size = 0.5, linetype = 'solid',
-        #                                 colour = "Gray"), 
-        # panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-        #                                 colour = "Gray")) 
-ggsave("./Output/A_sydowii_Relative_Abund_by_Site_and_Structure.png", dpi=300,height = 10,width = 12)
-
-# in which 6 samples was A. sydowii the most abundant
-sydowii_sample_ids = which(sydowii_seqs == 2)
-sydowii_sample_info = sample_data(ps_ra)[sydowii_sample_ids]
-write.csv(sydowii_sample_info, "./Output/Sydowii_sample_info.csv", row.names = FALSE, quote = FALSE)
-
-#double-check in otu table for same order
-identical(which(names(as.data.frame(ps@otu_table)) %in% sydowii_seqs), sydowii)
-sydowii_otu = as.data.frame(ps_ra@otu_table)[,sydowii] #using relabund
-
-# Sydowii otu table and stats ####
-sydowii_otu = otu[,sydowii]
-
-# Row (sample) mean relative abundance of sydowii
-apply(sydowii_otu,1,mean)
-
-#mean relabund
-syd_mean = apply(sydowii_otu,1,mean)
-syd_sd = apply(sydowii_otu,1,sd)
-
-ggplot(mapping = aes(x=meta$Structure[syd_mean>0],y=syd_mean[syd_mean>0])) + 
-  geom_boxplot()
-
-summary(aov(syd_mean ~ meta$Structure))
-
-#permanova
-adonis(sydowii_otu[syd_mean>0,]~meta$Structure[syd_mean>0])
-
-    #no difference in location of A. sydowii
-
+# # Look at Aspergillus sydowii (It's a known coral pathogen) ####
+# grep(pattern = "sydowii", tax$Species)
+# unique(tax$Species)
+# sydowii = which(tax$Species == "s__sydowii")
+# sydowii_seqs = (tax[sydowii,"seq"])
+# ps_ra2 = transform_sample_counts(psm2, function(x) x / sum(x) )
+# ps_sydowii = merge_taxa(ps_ra2,sydowii)
+# ps_sydowii = subset_taxa(ps_sydowii,Species == "s__sydowii")
+# 
+# structures = as.factor(sample_data(ps_sydowii)$Structure)
+# structures = as.character(plyr::mapvalues(structures, from = "Hold Fast", to="Holdfast"))
+# ps_sydowii@sam_data$Structure <- structures
+# 
+# plot_bar2(na.exclude(ps_sydowii),fill="Island",x="Island") + 
+#     facet_wrap(~Structure) +
+#   labs(x="Site",fill="Site",y="Relative Abundance") +
+#   theme(axis.title = element_text(size = 16), axis.text = element_text(size=12),
+#         legend.title = element_text(size=16),
+#         strip.text.x = element_text(size = 12, face = "bold")) +
+#   scale_fill_manual(values = pal)
+# 
+# 
+# 
+#         # panel.background = element_rect(fill = "White"),
+#         # panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+#         #                                 colour = "Gray"), 
+#         # panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+#         #                                 colour = "Gray")) 
+# ggsave("./Output/A_sydowii_Relative_Abund_by_Site_and_Structure.png", dpi=300,height = 10,width = 12)
+# 
+# # in which 6 samples was A. sydowii the most abundant
+# sydowii_sample_ids = which(sydowii_seqs == 2)
+# sydowii_sample_info = sample_data(ps_ra)[sydowii_sample_ids]
+# write.csv(sydowii_sample_info, "./Output/Sydowii_sample_info.csv", row.names = FALSE, quote = FALSE)
+# 
+# #double-check in otu table for same order
+# identical(which(names(as.data.frame(ps@otu_table)) %in% sydowii_seqs), sydowii)
+# sydowii_otu = as.data.frame(ps_ra@otu_table)[,sydowii] #using relabund
+# 
+# # Sydowii otu table and stats ####
+# sydowii_otu = otu[,sydowii]
+# 
+# # Row (sample) mean relative abundance of sydowii
+# apply(sydowii_otu,1,mean)
+# 
+# #mean relabund
+# syd_mean = apply(sydowii_otu,1,mean)
+# syd_sd = apply(sydowii_otu,1,sd)
+# 
+# ggplot(mapping = aes(x=meta$Structure[syd_mean>0],y=syd_mean[syd_mean>0])) + 
+#   geom_boxplot()
+# 
+# summary(aov(syd_mean ~ meta$Structure))
+# 
+# #permanova
+# adonis(sydowii_otu[syd_mean>0,]~meta$Structure[syd_mean>0])
+# 
+#     #no difference in location of A. sydowii
+# 
 
 # plot against sample info
 ggplot() +
@@ -406,52 +430,52 @@ ps_namedtaxa = subset_taxa(ps_ra, Genus!="NA"&Species!="NA")
 filter_taxa(ps_ra,function(x) x %in% head(sort(colSums(otu_table(ps_ra),decreasing = TRUE),10)))
 
 
-
-for(i in levels(ps_ra@sam_data$Island)) {
-
-  ps_ras <- subset_samples(ps_ra, Island == i)
-  
-  HoldFast = subset_samples(ps_ras, Structure == "Hold Fast")
-  HoldFast = subset_taxa(HoldFast, Genus != "NA")
-  Leaf = subset_samples(ps_ras, Structure == "Leaf")
-  Leaf = subset_taxa(Leaf, Genus != "NA")
-  Vesicle = subset_samples(ps_ras, Structure == "Vesicle")
-  Vesicle = subset_taxa(Vesicle, Genus != "NA")
-  
-  topten_seqs = names(sort(taxa_sums(HoldFast), TRUE)[1:10])
-  assign(paste0(i,"_holdfast"), tax_table(HoldFast)[topten_seqs])
-  assign(paste0(i,"_holdfast"), 
-         paste(get(paste0(i,"_holdfast"))[,6],get(paste0(i,"_holdfast"))[,7],sep = "___"))
-  sink(file = "./Output/Top_Ten_Taxa_From_Each_Island_and_Structure.txt", append = TRUE)
-    print(paste(i, "HoldFast", sep="___"))
-    print(get(paste0(i,"_holdfast")))
-  sink(NULL)
-  
-  topten_seqs = names(sort(taxa_sums(Leaf), TRUE)[1:10])
-  assign(paste0(i,"_leaf"), tax_table(HoldFast)[topten_seqs])
-  assign(paste0(i,"_leaf"), 
-         paste(get(paste0(i,"_leaf"))[,6],get(paste0(i,"_leaf"))[,7],sep = "___"))
-  sink(file = "./Output/Top_Ten_Taxa_From_Each_Island_and_Structure.txt", append = TRUE)
-    print(paste(i, "Leaf", sep="___"))
-    print(get(paste0(i,"_leaf")))
-  sink(NULL)
-  
-  topten_seqs = names(sort(taxa_sums(Vesicle), TRUE)[1:10])
-  assign(paste0(i,"_vesicle"), tax_table(HoldFast)[topten_seqs])
-  assign(paste0(i,"_vesicle"), 
-         paste(get(paste0(i,"_vesicle"))[,6],get(paste0(i,"_vesicle"))[,7],sep = "___"))
-  sink(file = "./Output/Top_Ten_Taxa_From_Each_Island_and_Structure.txt", append = TRUE)
-    print(paste(i, "Vesicle", sep="___"))
-    print(get(paste0(i,"_vesicle")))
-  sink(NULL)
-}
-
-plot_bar
-
-# PermANOVA ####
-sink(file = "./Output/Adonis_Table_Island.txt")
-adonis(otu_table(ps_ra) ~ ps_ra@sam_data$Island * ps_ra@sam_data$Structure)
-sink(NULL)
+# 
+# for(i in levels(ps_ra@sam_data$Island)) {
+# 
+#   ps_ras <- subset_samples(ps_ra, Island == i)
+#   
+#   HoldFast = subset_samples(ps_ras, Structure == "Hold Fast")
+#   HoldFast = subset_taxa(HoldFast, Genus != "NA")
+#   Leaf = subset_samples(ps_ras, Structure == "Leaf")
+#   Leaf = subset_taxa(Leaf, Genus != "NA")
+#   Vesicle = subset_samples(ps_ras, Structure == "Vesicle")
+#   Vesicle = subset_taxa(Vesicle, Genus != "NA")
+#   
+#   topten_seqs = names(sort(taxa_sums(HoldFast), TRUE)[1:10])
+#   assign(paste0(i,"_holdfast"), tax_table(HoldFast)[topten_seqs])
+#   assign(paste0(i,"_holdfast"), 
+#          paste(get(paste0(i,"_holdfast"))[,6],get(paste0(i,"_holdfast"))[,7],sep = "___"))
+#   sink(file = "./Output/Top_Ten_Taxa_From_Each_Island_and_Structure.txt", append = TRUE)
+#     print(paste(i, "HoldFast", sep="___"))
+#     print(get(paste0(i,"_holdfast")))
+#   sink(NULL)
+#   
+#   topten_seqs = names(sort(taxa_sums(Leaf), TRUE)[1:10])
+#   assign(paste0(i,"_leaf"), tax_table(HoldFast)[topten_seqs])
+#   assign(paste0(i,"_leaf"), 
+#          paste(get(paste0(i,"_leaf"))[,6],get(paste0(i,"_leaf"))[,7],sep = "___"))
+#   sink(file = "./Output/Top_Ten_Taxa_From_Each_Island_and_Structure.txt", append = TRUE)
+#     print(paste(i, "Leaf", sep="___"))
+#     print(get(paste0(i,"_leaf")))
+#   sink(NULL)
+#   
+#   topten_seqs = names(sort(taxa_sums(Vesicle), TRUE)[1:10])
+#   assign(paste0(i,"_vesicle"), tax_table(HoldFast)[topten_seqs])
+#   assign(paste0(i,"_vesicle"), 
+#          paste(get(paste0(i,"_vesicle"))[,6],get(paste0(i,"_vesicle"))[,7],sep = "___"))
+#   sink(file = "./Output/Top_Ten_Taxa_From_Each_Island_and_Structure.txt", append = TRUE)
+#     print(paste(i, "Vesicle", sep="___"))
+#     print(get(paste0(i,"_vesicle")))
+#   sink(NULL)
+# }
+# 
+# plot_bar
+# 
+# # PermANOVA ####
+# sink(file = "./Output/Adonis_Table_Island.txt")
+# adonis(otu_table(ps_ra) ~ ps_ra@sam_data$Island * ps_ra@sam_data$Structure)
+# sink(NULL)
 
 
 ####====================== Revisions ===============================####
