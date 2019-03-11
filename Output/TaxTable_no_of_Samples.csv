@@ -1,407 +1,160 @@
 Var1,Freq
-c__Agaricomycetes,82
-c__Agaricostilbomycetes,1
-c__Cystobasidiomycetes,1
-c__Dothideomycetes,76
-c__Eurotiomycetes,142
-c__Lecanoromycetes,2
-c__Malasseziomycetes,6
-c__Microbotryomycetes,17
-c__Saccharomycetes,22
-c__Sordariomycetes,64
-c__Tremellomycetes,16
-c__Ustilaginomycetes,1
-c__Wallemiomycetes,2
-f__Agaricostilbaceae,1
-f__Arthopyreniaceae,1
-f__Aspergillaceae,104
-f__Aureobasidiaceae,2
-f__Boliniaceae,1
-f__Botryobasidiaceae,1
-f__Bulleribasidiaceae,3
-f__Caliciaceae,2
-f__Cantharellales_fam_Incertae_sedis,1
-f__Ceratobasidiaceae,1
+c__Agaricomycetes,198
+c__Dothideomycetes,28
+c__Eurotiomycetes,21
+c__Glomeromycetes,1
+c__Lecanoromycetes,13
+c__Leotiomycetes,2
+c__Microbotryomycetes,1
+c__NA,57
+c__Saccharomycetes,3
+c__Sordariomycetes,106
+f__Agaricaceae,1
+f__Aspergillaceae,20
+f__Boletaceae,1
+f__Botryosphaeriaceae,6
 f__Chaetomiaceae,2
-f__Chaetothyriales_fam_Incertae_sedis,4
-f__Cladosporiaceae,16
-f__Clavicipitaceae,1
-f__Cordycipitaceae,4
-f__Corticiaceae,1
-f__Cortinariaceae,1
-f__Cystofilobasidiaceae,2
-f__Debaryomycetaceae,2
-f__Diatrypaceae,7
-f__Didymellaceae,4
-f__Didymosphaeriaceae,8
-f__Dissoconiaceae,2
-f__Dothideales_fam_Incertae_sedis,8
-f__Exidiaceae,1
-f__Filobasidiaceae,3
-f__Fomitopsidaceae,4
-f__Ganodermataceae,18
-f__Geastraceae,1
-f__Glomerellaceae,2
-f__Halosphaeriaceae,2
-f__Herpotrichiellaceae,4
-f__Hydnodontaceae,2
-f__Hymenochaetaceae,2
-f__Hymenochaetales_fam_Incertae_sedis,4
-f__Hypocreaceae,4
-f__Hypocreales_fam_Incertae_sedis,5
-f__Leucosporidiaceae,1
-f__Lophiostomataceae,1
-f__Lulworthiaceae,1
-f__Malasseziaceae,5
-f__Meripilaceae,1
-f__Meruliaceae,9
-f__Microbotryomycetes_fam_Incertae_sedis,1
-f__Mycosphaerellaceae,5
-f__Nectriaceae,5
-f__Neodevriesiaceae,1
-f__Ophiocordycipitaceae,1
-f__Peniophoraceae,1
-f__Phaeomoniellaceae,1
-f__Phaeosphaeriaceae,3
-f__Phaffomycetaceae,1
-f__Phomatosporaceae,1
-f__Physalacriaceae,2
-f__Plectosphaerellaceae,2
-f__Pleosporaceae,4
-f__Pleosporales_fam_Incertae_sedis,7
-f__Polyporaceae,5
-f__Psathyrellaceae,2
-f__Pterulaceae,1
-f__Rhynchogastremataceae,1
-f__Rickenellaceae,1
-f__Saccharomycetales_fam_Incertae_sedis,19
-f__Schizophyllaceae,1
-f__Sclerodermataceae,1
-f__Sporidiobolaceae,15
-f__Sporocadaceae,1
-f__Stachybotryaceae,3
-f__Steccherinaceae,1
-f__Stereaceae,1
-f__Teratosphaeriaceae,6
-f__Thelephoraceae,1
-f__Thermoascaceae,16
-f__Thyridariaceae,1
-f__Trichocomaceae,10
-f__Trichosphaeriaceae,6
-f__Trichosporonaceae,4
-f__Trimorphomycetaceae,2
-f__Ustilaginaceae,1
-f__Wallemiaceae,2
-f__Xylariaceae,10
-f__Xylariales_fam_Incertae_sedis,1
-g__Abundisporus,1
-g__Acremonium,2
+f__Cordycipitaceae,5
+f__Coriolaceae,4
+f__Didymellaceae,5
+f__Didymosphaeriaceae,1
+f__Entolomataceae,17
+f__Glomeraceae,1
+f__Hypocreaceae,7
+f__Inocybaceae,1
+f__Meruliaceae,1
+f__Mucoraceae,1
+f__Mycosphaerellaceae,4
+f__NA,63
+f__Nectriaceae,64
+f__Pleosporaceae,2
+f__Pseudeurotiaceae,2
+f__Ramalinaceae,10
+f__Sporidiobolaceae,1
+f__Sporormiaceae,1
+f__Teloschistaceae,3
+f__Thelephoraceae,7
+f__Trichocomaceae,1
+f__Xylariaceae,13
 g__Alternaria,2
-g__Amandinea,2
-g__Annulohypoxylon,1
-g__Antrodia,1
-g__Apiotrichum,1
-g__Aspergillus,84
-g__Aureobasidium,2
-g__Botryobasidium,1
-g__Byssochlamys,16
-g__Candida,19
-g__Ceriporia,1
-g__Chaetomium,1
-g__Cinereomyces,1
-g__Cladophialophora,1
-g__Cladosporium,14
-g__Colacogloea,1
-g__Colletotrichum,1
-g__Coprinopsis,2
-g__Coriolopsis,1
-g__Corticium,1
-g__Curvularia,2
-g__Cutaneotrichosporon,2
-g__Cyberlindnera,1
-g__Cystofilobasidium,2
+g__Aspergillus,20
+g__Battarrea,1
+g__Beauveria,3
+g__Biscogniauxia,8
+g__Caloplaca,1
+g__Candida,3
+g__Ceriporiopsis,1
+g__Chaetomium,2
+g__Cordyceps,2
+g__Cylindrocarpon,56
 g__Daldinia,1
-g__Devriesia,1
-g__Didymella,1
-g__Earliella,1
-g__Engyodontium,1
-g__Epicoccum,2
-g__Erythromyces,1
-g__Eutypella,2
-g__Exophiala,3
-g__Flammulina,2
-g__Fodinomyces,1
-g__Fusarium,1
-g__Ganoderma,12
-g__Geastrum,1
-g__Gelatoporia,1
-g__Gibberella,2
-g__Glomerella,1
-g__Grammothele,1
-g__Gymnopilus,1
-g__Hannaella,3
-g__Hansfordia,1
-g__Heterochaete,1
-g__Hortaea,8
-g__Hypoxylon,1
-g__Inonotus,1
-g__Lecanicillium,3
-g__Leptospora,2
-g__Letendraea,1
-g__Leucosporidium,1
-g__Lindra,1
-g__Malassezia,5
-g__Metarhizium,1
-g__Meyerozyma,2
-g__Mycosphaerella,3
-g__Myrothecium,2
-g__Naganishia,3
-g__Nectria,1
-g__Nemania,2
-g__Neodevriesia,1
-g__Neostrelitziana,2
-g__Nigrograna,7
-g__Nigrospora,6
-g__Papiliotrema,1
-g__Paraconiothyrium,4
-g__Paraphaeosphaeria,2
-g__Penicillium,13
-g__Peniophora,1
-g__Peniophorella,1
-g__Perenniporia,5
-g__Peroneutypa,3
-g__Pestalotiopsis,1
-g__Phaeomoniella,1
-g__Phaeophleospora,1
-g__Phanerochaete,3
-g__Phellinus,1
-g__Phialosimplex,1
-g__Phlebia,3
-g__Phomatospora,1
-g__Plectosphaerella,1
-g__Pseudovalsaria,1
-g__Purpureocillium,1
-g__Ramichloridium,2
-g__Resinicium,1
-g__Rhodosporidiobolus,1
-g__Rhodotorula,9
-g__Saitozyma,2
-g__Sarocladium,1
-g__Schizophyllum,1
-g__Scleroderma,1
-g__Scopuloides,1
-g__Setophaeosphaeria,1
-g__Sidera,1
-g__Sistotrema,1
-g__Skeletocutis,1
-g__Spegazzinia,1
-g__Sporobolomyces,5
-g__Stachybotrys,1
-g__Steccherinum,1
-g__Stereum,1
-g__Sterigmatomyces,1
-g__Strelitziana,2
-g__Talaromyces,10
-g__Thanatephorus,1
-g__Tomentella,1
-g__Toxicocladosporium,2
-g__Trechispora,1
-g__Trichaptum,2
-g__Trichoderma,4
-g__Trichosporon,1
-g__Trichothecium,2
-g__Wallemia,2
-g__Whalleya,1
-g__Xeromyces,5
-g__Xylaria,2
-g__Xylocoremium,1
-k__Fungi,1158
-o__Agaricales,7
-o__Agaricostilbales,1
-o__Auriculariales,1
+g__Entoloma,17
+g__Fusarium,7
+g__Fusicolla,1
+g__Geomyces,2
+g__Glomus,1
+g__Inocybe,1
+g__Lemonniera,1
+g__Macrophomina,4
+g__Mucor,1
+g__Mycosphaerella,1
+g__NA,61
+g__Neoascochyta,1
+g__Neofusicoccum,2
+g__Passalora,1
+g__Phoma,4
+g__Polycauliona,2
+g__Preussia,1
+g__Pseudocercospora,1
+g__Pseudocercosporella,1
+g__Rhodotorula,1
+g__Rossbeevera,1
+g__Szczawinskia,1
+g__Talaromyces,1
+g__Tomentella,7
+g__Toninia,9
+g__Trametes,4
+g__Trichoderma,7
+g__Xylaria,3
+k__Fungi,1115
+o__Agaricales,19
 o__Boletales,1
-o__Boliniales,1
-o__Caliciales,2
-o__Cantharellales,3
-o__Capnodiales,34
-o__Chaetothyriales,11
-o__Corticiales,1
-o__Cystofilobasidiales,2
-o__Dothideales,10
-o__Eurotiales,130
-o__Filobasidiales,3
-o__Geastrales,1
-o__Glomerellales,4
-o__Hymenochaetales,7
-o__Hypocreales,23
-o__Leucosporidiales,1
-o__Lulworthiales,1
-o__Malasseziales,6
-o__Microascales,2
-o__Microbotryomycetes_ord_Incertae_sedis,1
-o__Phaeomoniellales,1
-o__Phomatosporales,1
-o__Pleosporales,32
-o__Polyporales,40
-o__Russulales,2
-o__Saccharomycetales,22
-o__Sordariales,3
-o__Sporidiobolales,15
-o__Thelephorales,1
-o__Trechisporales,2
-o__Tremellales,7
-o__Trichosphaeriales,6
-o__Trichosporonales,4
-o__Ustilaginales,1
-o__Wallemiales,2
-o__Xylariales,20
-p__Ascomycota,323
-p__Basidiomycota,131
-s__acaciigena,2
-s__acutata,1
-s__adeliensis,1
-s__albobiverticillius,1
-s__album,1
-s__alcalophila,2
-s__alfredii,1
-s__alsophila,2
-s__alternata,2
-s__angustispirale,1
-s__apiculatum,2
-s__arecacearum,1
-s__asahii,1
-s__atroviride,1
-s__australe,3
-s__baccata,1
-s__bermudense,1
-s__bisporus,5
-s__brevicompactum,1
-s__calospora,1
-s__chaetospira,1
-s__chartarum,1
-s__chermesinum,1
-s__chrysogenum,2
-s__chrysosporium,2
-s__citricola,1
-s__citrinum,1
-s__commune,1
-s__crocicreas,1
-s__cucumerina,1
-s__cucumeris,1
-s__cupreum,3
-s__cyclothyrioides,2
-s__daleae,1
-s__delicata,1
-s__delicatulum,4
-s__dermatis,2
-s__diffluens,1
-s__dilepis,1
-s__diluta,1
-s__diversus,1
-s__domesticum,1
-s__dominicanum,4
-s__efflorescens,2
-s__etlingerae,2
-s__eucalypti,2
-s__ferruginea,1
-s__flavescens,1
-s__fragi,2
-s__friedmannii,1
-s__fuligo,1
-s__fumigatus,1
-s__fuscopurpureus,1
-s__gardeniae,1
-s__ghanense,1
-s__globosa,1
-s__gracilis,2
-s__gramineum,1
-s__guilliermondii,2
-s__halophilicus,4
-s__halophilus,1
-s__halotolerans,5
-s__helminthicola,1
-s__hemerocallidis,1
-s__hiratsukae,1
-s__hydnoides,1
-s__hymenocallidicola,1
-s__immaculatum,1
-s__infirmominiatum,2
-s__intricans,1
-s__irritans,1
-s__jadinii,1
-s__jiangxiense,1
-s__kiliense,1
-s__lacerata,1
-s__lagunculariae,14
-s__lalashana,1
-s__lecanii,2
-s__lilacinum,1
-s__lindbladii,1
-s__lixii,1
-s__lunata,1
-s__mellissii,1
-s__metapsilosis,1
-s__monticola,1
-s__monticulosum,1
-s__mucilaginosa,7
-s__niger,1
-s__nigrum,1
-s__nitens,1
-s__noxius,1
-s__orbiforme,3
-s__orthopsilosis,5
-s__oryzae,6
-s__pachyphloeus,1
-s__paraflava,1
-s__parapsilosis,5
-s__patagonicus,3
-s__pemphigi,1
-s__penicillioides,58
-s__phoeniceum,1
-s__primolutea,1
-s__proliferans,2
-s__pullulans,1
-s__pulvinata,1
-s__pyricola,5
-s__restricta,4
-s__restrictus,1
-s__roridum,1
-s__roseum,2
-s__roseus,1
-s__rotundus,8
-s__rubella,2
-s__ruber,1
-s__salinarum,1
-s__sanguinolentum,1
-s__scabrosa,1
-s__scoparia,1
-s__sector,2
-s__sernanderi,1
-s__siamensis,3
-s__solani,1
-s__sorghina,1
-s__spectabilis,1
-s__sphaerospermum,1
-s__starbaeckii,1
-s__steckii,1
-s__steynii,1
-s__striatigera,1
-s__strumosa,1
-s__subcoronatum,1
-s__subvermispora,1
-s__sydowii,11
-s__tassiana,1
-s__tenue,1
-s__terpenoidalis,1
-s__thailandense,1
-s__thalassiae,1
-s__theae,1
-s__toruloides,2
-s__toxicarium,2
-s__tropicalis,5
-s__tuberculata,1
-s__uranophilus,1
-s__velutipes,2
-s__werneckii,8
-s__yakuticum,1
-s__zonatum,1
+o__Botryosphaeriales,6
+o__Capnodiales,4
+o__Eurotiales,21
+o__Glomerales,1
+o__Hypocreales,80
+o__Lecanorales,10
+o__Mucorales,1
+o__NA,60
+o__Pleosporales,12
+o__Polyporales,5
+o__Saccharomycetales,3
+o__Sordariales,2
+o__Sporidiobolales,1
+o__Teloschistales,3
+o__Thelephorales,7
+o__Xylariales,13
+p__NA,1115
+s__Alternaria sp. DO,1
+s__Alternaria sp. HAS-3,1
+s__Aspergillus sp. GA-F3,1
+s__Aspergillus venezuelensis,19
+s__Battarrea phalloides,1
+s__Beauveria sulfurescens,3
+s__Biscogniauxia sp. PP071018,8
+s__Caloplaca sp. CBFS JV12732,1
+s__Candida sp. Envir-L231,2
+s__Candida sp. ES13S05,1
+s__Ceriporiopsis balaenae,1
+s__Chaetomium sp. 1 JAS-2013,2
+s__Cordyceps sp. BCC19481,2
+s__Cylindrocarpon sp. 94-1685,56
+s__Daldinia palmensis,1
+s__Dothideomycetes sp. Di85-2,1
+s__Entoloma sp. 3 AK-2012,17
+s__foliar endophyte of Picea glauca sp. J2,1
+s__fungal endophyte sp. AP762,1
+s__fungal sp. DS63,1
+s__fungal sp. E-000535643,12
+s__fungal sp. E15501F,1
+s__fungal sp. R9,9
+s__Fusarium cf. solani 18924,1
+s__Fusarium sp. AL-20 IRH-2012g,1
+s__Fusarium sp. E14023a,1
+s__Fusarium sp. F2 NMM-2014,1
+s__Fusarium sp. G338,1
+s__Fusarium sp. NRRL 25622,1
+s__Fusarium sp. SS-1355,1
+s__Fusicolla sp. BCCM/IHEM 2440,1
+s__Geomyces sp. UFMGCB 6294,2
+s__Glomus sp. R22.3,1
+s__Hypocreales sp. bc_gw_9967e,1
+s__Inocybe sp. OTU307,1
+s__Lemonniera centrosphaera,1
+s__Macrophomina sp. 298 AM-2013,4
+s__Montagnulaceae sp. F38,1
+s__Mucor japonicus,1
+s__Mycosphaerella sp. GS3_3_6,1
+s__Neoascochyta sp. OTU023 AN-2016,1
+s__Neofusicoccum sp. B1174,2
+s__Passalora rosicola,1
+s__Phoma sp. A14,4
+s__Pleosporales sp. RKDO823,1
+s__Polycauliona sp. 32 UA-2013,2
+s__Preussia sp. GSH1_5_6,1
+s__Pseudocercospora jussiaeae-repentis,1
+s__Pseudocercosporella sp. RH1.1,1
+s__Rhodosporidium sp. 14Y315,1
+s__Rossbeevera pachydermis,1
+s__Sordariomycetes sp. MUT 1541,2
+s__Szczawinskia tsugae,1
+s__Talaromyces cf. aculeatus V28-351,1
+s__Tomentella sp. OTU228,1
+s__Tomentella sp. YM1529,6
+s__Toninia rosulata,9
+s__Trametes manilaensis,4
+s__Trichoderma sp. H09,7
+s__Xylariaceae sp. B1A0282EM2CC669,1
+s__Xylaria sp. AV1L3-4,2
+s__Xylaria sp. PR6,1
