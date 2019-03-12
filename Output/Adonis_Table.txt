@@ -1,0 +1,17 @@
+
+Call:
+adonis(formula = otu_table(psra) ~ island * structure) 
+
+Permutation: free
+Number of permutations: 999
+
+Terms added sequentially (first to last)
+
+                  Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
+island             7     8.767 1.25249  3.5444 0.11631  0.001 ***
+structure          2     1.743 0.87174  2.4669 0.02313  0.001 ***
+island:structure  14     6.565 0.46892  1.3270 0.08709  0.001 ***
+Residuals        165    58.306 0.35337         0.77348           
+Total            188    75.382                 1.00000           
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
