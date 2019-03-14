@@ -207,6 +207,8 @@ meta = meta %>% arrange(Structure)
 order.df = order.df[,meta$IlluminaName]
 order.df = decostand(order.df,"total", MARGIN = 2)
 
+rowSums(order.df)
+
 order.matrix = as.matrix(order.df)
 hm.pal = c("#ffffff",RColorBrewer::brewer.pal(8,"OrRd"))
 
