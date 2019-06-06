@@ -1,0 +1,42 @@
+# Run raw sequences through ITSx
+
+## Convert to fasta
+for fn in $(ls *.fastq); do fqtofa $fn > $fn.fna;done
+
+## Run through ITSx
+for fn in *.fna;do ITSx -i $fn -o $fn.ITS1 -t F --multi_thread T --cpu 20 --graphical F --preserve T --save_regions ITS1 --positions F --not_found F; done
+
+# Since ITSx removed some reads, need to condense original fastq files to match (done in bash)
+for ITS1fasta in *.ITS1.ITS1.fasta
+do echo "using $ITS1fasta to condense $(basename $ITS1fasta .fastq.fna.ITS1.ITS1.fasta).fastq"
+grep "^>" $ITS1fasta > tempfile #get read names that ITSx wrote out
+sed -i 's/^>/@/' tempfile #change > to @
+grep -A3 -Fwf tempfile $(basename $ITS1fasta .fastq.fna.ITS1.ITS1.fasta).fastq > fastq_temp #Look up each read name in original fastq and write all 4 lines of each read to new file
+sed -i '/^--$/d' fastq_temp # remove empty lines that just have "--"
+mv fastq_temp $(basename $ITS1fasta .fastq.fna.ITS1.ITS1.fasta).condensed.fastq # rename the file
+done
+
+
+
+# Extract ITS1 from fastq files
+fastas <- list.files(path = "./Fastqs", pattern = ".fastq.fna.ITS1.ITS1.fasta", full.names = TRUE)
+rawfqs <- list.files(path = "./Fastqs", pattern = ".fastq$", full.names = TRUE)
+NewNames <- paste0(strsplit(fastas,".fastq.fna.ITS1.ITS1.fasta"),".ITS1.fastq")
+
+## Jack Darcy's script ... takes -f ITSx_fasta -q Original_fastq -o New_name 
+## (original options changed to allow looping)
+
+for(i in 1:length(fastas)){
+source("./itsx_fastq_extractor.r") 
+  }
+
+
+# Update NCBI database to work with RDP classifier
+seqkit replace -p "(.+)" -r '$1|$1|$1|refs|{kv}' -k NCBI_ITS1_QIIME_Taxonomy_cleaned.fasta NCBI_ITS1_QIIME_DB_cleaned.fasta > NCBI_ITS1_RDP_Training_Set.fasta 
+
+# Add Anthozoa to UNITE RDP training set
+grep -A1 "Anthozoa" NCBI_ITS1_RDP_Training_Set_Final.fasta | sed '/^--$/d' > anthozoa.fasta
+cat sh_general_release_dynamic_s_01.12.2017.fasta anthozoa.fasta > sh_general_release_dynamic_s_01.12.2017_w_anthozoa.fasta
+
+
+

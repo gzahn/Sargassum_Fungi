@@ -31,7 +31,7 @@ source("./R/heatmap_left.R")
 pal = c("#c4a113","#c1593c","#643d91","#820616","#477887","#688e52",
         "#12aa91","#705f36","#8997b2","#753c2b","#3c3e44","#b3bf2d",
         "#82b2a4","#894e7d","#a17fc1","#262a8e","#abb5b5","#000000")
-colorblindr::palette_plot(pal)
+colorblindr::palette_plot(pal[11])
 
 # Load data ####
 ps = readRDS(file = "./Output/clean_phyloseq_object.RDS")
@@ -110,25 +110,49 @@ ps_ra@tax_table[,4] <- stringr::str_remove(ordernames, "o__")
 ordernames2 = as.character((ps_ra2@tax_table[,4]))
 ps_ra2@tax_table[,4] <- stringr::str_remove(ordernames2, "o__")
 
+# Change "Family" names to remove "f__"
+familynames = as.character((ps_ra@tax_table[,5]))
+ps_ra@tax_table[,5] <- stringr::str_remove(familynames, "f__")
+familynames2 = as.character((ps_ra2@tax_table[,5]))
+ps_ra2@tax_table[,5] <- stringr::str_remove(familynames2, "f__")
+
+# Change "Genus" names to remove "g__"
+genusnames = as.character((ps_ra@tax_table[,6]))
+ps_ra@tax_table[,6] <- stringr::str_remove(genusnames, "g__")
+genusnames2 = as.character((ps_ra2@tax_table[,6]))
+ps_ra2@tax_table[,6] <- stringr::str_remove(genusnames2, "g__")
+
 # convert "NA" to NA
 unique(as.character(ps_ra@tax_table[,1]))
 unique(as.character(ps_ra@tax_table[,3]))
 unique(as.character(ps_ra@tax_table[,4]))
+unique(as.character(ps_ra@tax_table[,5]))
+unique(as.character(ps_ra@tax_table[,6]))
 
 ps_ra@tax_table[,1][is.na(ps_ra@tax_table[,1])] <- "Unassigned"
 ps_ra@tax_table[,3][is.na(ps_ra@tax_table[,3])] <- "Unassigned"
 ps_ra@tax_table[,4][is.na(ps_ra@tax_table[,4])] <- "Unassigned"
+ps_ra@tax_table[,5][is.na(ps_ra@tax_table[,5])] <- "Unassigned"
+ps_ra@tax_table[,6][is.na(ps_ra@tax_table[,6])] <- "Unassigned"
+
 ps_ra2@tax_table[,1][is.na(ps_ra2@tax_table[,1])] <- "Unassigned"
 ps_ra2@tax_table[,3][is.na(ps_ra2@tax_table[,3])] <- "Unassigned"
 ps_ra2@tax_table[,4][is.na(ps_ra2@tax_table[,4])] <- "Unassigned"
+ps_ra2@tax_table[,5][is.na(ps_ra2@tax_table[,5])] <- "Unassigned"
+ps_ra2@tax_table[,6][is.na(ps_ra2@tax_table[,6])] <- "Unassigned"
 
 
 ps_ra@tax_table[,1][ps_ra@tax_table[,1] == "NA"] <- "Unassigned"
 ps_ra@tax_table[,3][ps_ra@tax_table[,3] == "NA"] <- "Unassigned"
 ps_ra@tax_table[,4][ps_ra@tax_table[,4] == "NA"] <- "Unassigned"
+ps_ra@tax_table[,5][ps_ra@tax_table[,5] == "NA"] <- "Unassigned"
+ps_ra@tax_table[,6][ps_ra@tax_table[,6] == "NA"] <- "Unassigned"
+
 ps_ra2@tax_table[,1][ps_ra2@tax_table[,1] == "NA"] <- "Unassigned"
 ps_ra2@tax_table[,3][ps_ra2@tax_table[,3] == "NA"] <- "Unassigned"
 ps_ra2@tax_table[,4][ps_ra2@tax_table[,4] == "NA"] <- "Unassigned"
+ps_ra2@tax_table[,5][ps_ra2@tax_table[,5] == "NA"] <- "Unassigned"
+ps_ra2@tax_table[,6][ps_ra2@tax_table[,6] == "NA"] <- "Unassigned"
 
 
 # Fix Phylum names
@@ -146,6 +170,7 @@ plot_bar(ps_ra, fill = "Class",x="Island") +
   labs(x="Site",y="Relative Abundance") + theme_bw() +
   theme(axis.title = element_text(size = 24,face = "bold"), axis.text = element_text(size=18),
         legend.title = element_text(size=20), legend.text = element_text(size=16)) + scale_fill_manual(values = pal[c(1:9,11)])  
+
 ggsave("./Output/BarPlot_Fungal_Class_by_Island.png", height = 8, width = 12, dpi=300)
 
 plot_bar(ps_ra, fill = "Phylum",x="Island") +
@@ -155,6 +180,38 @@ plot_bar(ps_ra, fill = "Phylum",x="Island") +
         legend.title = element_text(size=20), legend.text = element_text(size=16)) + scale_fill_manual(values = pal[c(1:9,11)])  
 ggsave("./Output/BarPlot_Fungal_Phylum_by_Island.png", height = 8, width = 12, dpi=300)
 
+p.family = plot_bar(ps_ra, fill = "Family",x="Island") +
+  geom_bar(stat = "identity") + coord_flip()  + #facet_wrap(~levels(sample_data(ps)$Structure)) +
+  labs(x="Site",y="Relative Abundance") + theme_bw() +
+  theme(axis.title = element_text(size = 24,face = "bold"), axis.text = element_text(size=18),
+        legend.title = element_text(size=20), legend.text = element_text(size=16)) #+ scale_fill_manual(values = pal[c(1:9,11)])  
+p = ggplot_build(p.family)
+family.colors = unique(p$data[[1]]["fill"])[,1]
+family.colors[26] <- "#3c3e44"
+
+plot_bar(ps_ra, fill = "Family",x="Island") +
+  geom_bar(stat = "identity") + coord_flip()  + #facet_wrap(~levels(sample_data(ps)$Structure)) +
+  labs(x="Site",y="Relative Abundance") + theme_bw() +
+  theme(axis.title = element_text(size = 24,face = "bold"), axis.text = element_text(size=18),
+        legend.title = element_text(size=20), legend.text = element_text(size=16)) + scale_fill_manual(values = family.colors)  
+
+ggsave("./Output/BarPlot_Fungal_Family_by_Island.png", height = 8, width = 12)
+
+p.genus = plot_bar(ps_ra, fill = "Genus",x="Island") +
+  geom_bar(stat = "identity") + coord_flip()  + #facet_wrap(~levels(sample_data(ps)$Structure)) +
+  labs(x="Site",y="Relative Abundance") + theme_bw() +
+  theme(axis.title = element_text(size = 24,face = "bold"), axis.text = element_text(size=18),
+        legend.title = element_text(size=20), legend.text = element_text(size=16)) #+ scale_fill_manual(values = pal[c(1:9,11)])  
+p = ggplot_build(p.genus)
+genus.colors = unique(p$data[[1]]["fill"])[,1]
+genus.colors[39] <- "#3c3e44"
+
+plot_bar(ps_ra, fill = "Genus",x="Island") +
+  geom_bar(stat = "identity") + coord_flip()  + #facet_wrap(~levels(sample_data(ps)$Structure)) +
+  labs(x="Site",y="Relative Abundance") + theme_bw() +
+  theme(axis.title = element_text(size = 24,face = "bold"), axis.text = element_text(size=18),
+        legend.title = element_text(size=20), legend.text = element_text(size=16)) + scale_fill_manual(values = genus.colors)  
+ggsave("./Output/BarPlot_Fungal_Genus_by_Island.png", height = 8, width = 12)
 
 
 
@@ -182,6 +239,20 @@ plot_bar(ps_ra2, fill = "Order",x="Island") +
   geom_bar(stat = "identity") + coord_flip()  + facet_wrap(~levels(sample_data(ps)$Structure)) +
   labs(x="Site",y="Relative Abundance") + lims(y=c(0,1)) + theme_bw() + scale_fill_manual(values = pal[c(1:10,12:17,11:12)], breaks = orders)
 ggsave("./Output/BarPlot_Fungal_Order_by_Island_and_Structure.png", height = 8, width = 12)
+
+
+# Family level for reviewer #1
+plot_bar(ps_ra2, fill = "Family",x="Island") +
+  geom_bar(stat = "identity") + coord_flip()  + facet_wrap(~levels(sample_data(ps)$Structure)) +
+  labs(x="Site",y="Relative Abundance") + lims(y=c(0,1)) + theme_bw()# + scale_fill_manual(values = pal[c(1:10,12:17,11:12)], breaks = orders)
+ggsave("./Output/BarPlot_Fungal_Family_by_Island_and_Structure.png", height = 8, width = 12)
+
+# Genus level for reviewer #1
+plot_bar(ps_ra2, fill = "Genus",x="Island") +
+  geom_bar(stat = "identity") + coord_flip()  + facet_wrap(~levels(sample_data(ps)$Structure)) +
+  labs(x="Site",y="Relative Abundance") + lims(y=c(0,1)) + theme_bw()# + scale_fill_manual(values = pal[c(1:10,12:17,11:12)], breaks = orders)
+ggsave("./Output/BarPlot_Fungal_Genus_by_Island_and_Structure.png", height = 8, width = 12)
+
 
 
 # Heatmap Order level taxa relative abundance in all samples, colored by structure ####
