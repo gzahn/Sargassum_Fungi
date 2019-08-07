@@ -435,30 +435,3 @@ draw.triple.venn(area.hf,area.lf,area.vs,nhf_lf,nlf_vs,nhf_vs,nhf_lf_vs,
                  alpha = .75, cex = rep(2,7), cat.cex = rep(2,3), cat.dist = .1)
 dev.off()
 
-####====================== Revisions ===============================####
-
-# Venn diagram of ESVs by island and structure
-# overlapping fungi
-
-# Heatmap of ESV Class by structure
-
-# Add structure to permanova (done)
-
-# Look closer at structure differences - univariate level
-
-# Check "Unknowns" against bigger database to make sure these are/aren't fungi
-
-# Add error bars to fig. 3
-
-# Double-check A. sydowii sequence against NCBI, etc (BLAST, NJ tree???)
-
-
-#  left off here -> redoing taxonomy assignment in previous script. Pick up tuesday at beginning of this script.
-
-# Change color palette for all barplots that will go into manuscript
-
-
-
-
-
-
